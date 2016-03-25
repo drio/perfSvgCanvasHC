@@ -3,19 +3,21 @@
 
     var x, y, xAxis, yAxis;
 
+    var svg;
+
     var margin = {top: 20, right: 20, bottom: 30, left: 60},
         width = 1200 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
 
-    function findMinMaxTime(aSeries, idx) {
+    function findMinMaxTime(aSeries) {
       var min = null,
           max = null,
           start,
           stop;
 
       _.each(aSeries, function(s) {
-        start = s[0][idx]             // start epoch
-        stop  = s[s.length - 1][idx]; // end epoch
+        start = s[0][0]             // start epoch
+        stop  = s[s.length - 1][0]; // end epoch
 
         if (!min || start < min)
           min = start;
@@ -24,18 +26,34 @@
           max = stop;
       });
 
-      return [new Date(min), new Date(max)];
+      return [min, max];
+    }
+
+    function findMinMaxValues(aSeries) {
+      var min = null, max = null;
+
+      _.each(aSeries, function(s) {
+        _.each(s, function(point) {
+          if (!min || point[1] < min)
+            min = point[1];
+
+          if (!max || point[1] > max)
+            max = point[1];
+        });
+      });
+
+      return [min, max];
     }
 
     function setAxes(data) {
-      var iEpoch = 0, iValue = 1;
+      var iEpoch = 0;
 
       x = d3.time.scale()
-                .domain(findMinMaxTime(data, iEpoch))
+                .domain(findMinMaxTime(data))
                 .range([0, width]);
 
       y = d3.scale.linear()
-                .domain(findMinMaxTime(data, iValue))
+                .domain(findMinMaxValues(data))
                 .range([height, 0]);
 
       xAxis = d3.svg.axis()
@@ -49,11 +67,7 @@
           .scale(y)
           .orient("left");
 
-      var line = d3.svg.line()
-          .x(function(d) { return x(d[0]); })
-          .y(function(d) { return y(d[1]); });
-
-      var svg = d3.select(selector).append("svg")
+      svg = d3.select(selector).append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -126,19 +140,26 @@
       });
   }
 
-  function dual(data, engine) {
+  function svgEngine(series) {
+      var line = d3.svg.line()
+          .x(function(d) { return x(d[0]); })
+          .y(function(d) { return y(d[1]); });
 
-    setAxes(data);
+      _.each(series, function(s) {
+        svg.append("path")
+            .datum(s)
+            .attr("class", "line")
+            .attr("d", line);
+      });
+  }
 
-    if (engine == "canvas") {
-      canvasEngine(data);
-    }
-    else {
-      svg.append("path")
-          .datum(data)
-          .attr("class", "line")
-          .attr("d", line);
-    }
+  function dual(series, engine) {
+    setAxes(series);
+
+    if (engine == "canvas")
+      canvasEngine(series);
+    else
+      svgEngine(series);
   }
 
   // expose methods

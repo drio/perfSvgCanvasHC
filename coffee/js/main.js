@@ -36,7 +36,7 @@
       });
     };
     loadTimes = function() {
-      doWork(2, 100, "canvas");
+      doWork(5, 100, "svg");
       return window.onload = function() {
         return setTimeout(function() {
           var t;
