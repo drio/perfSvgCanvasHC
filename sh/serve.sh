@@ -1,3 +1,3 @@
 #!/bin/bash
 
-http-server --cors -p 9001
+http-server --cors -p 9002

@@ -36,11 +36,12 @@
       });
     };
     loadTimes = function() {
-      doWork(5, 100, "canvas");
+      doWork(20, 100, "svg");
       return window.onload = function() {
         return setTimeout(function() {
           var t;
-          return t = performance.timing;
+          t = performance.timing;
+          return console.log(t.loadEventEnd - t.responseEnd);
         }, 0);
       };
     };

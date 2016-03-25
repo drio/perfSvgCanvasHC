@@ -105,6 +105,7 @@
       context.rect(0, 0, chart.attr("width"), chart.attr("height"));
       context.fill();
 
+    context.beginPath();
     _.each(series, function(data) {
       /*
        * Create custom DOM elements and link data to them
@@ -139,17 +140,16 @@
       _.each(moves, function (d, idx) {
         if (idx+1 < moves.length) {
           var next = moves[idx+1];
-          context.beginPath();
           context.moveTo(x(d[0]), y(d[1]));
           context.lineTo(x(next[0]), y(next[1]));
           context.strokeStyle = 'red';
-          context.stroke();
         }
       });
 
       d3.selectAll("custom.line").remove();
       d3.selectAll("custom").remove();
     });
+    context.stroke();
   }
 
   function svgEngine(series) {
