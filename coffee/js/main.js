@@ -33,7 +33,7 @@
       });
     };
     loadTimes = function() {
-      doWork(1000, "canvas");
+      doWork(100, "canvas");
       return window.onload = function() {
         return setTimeout(function() {
           var t;

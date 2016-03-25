@@ -2,6 +2,7 @@
 
 echo "Building!"
 sass styles/main.sass:styles/css/main.css
+cat styles/css/svg.css >> styles/css/main.css
 ./node_modules/.bin/coffee --compile --output coffee/js  coffee/
 
 cat \
