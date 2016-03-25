@@ -23,7 +23,7 @@ do ->
     d3.timer -> doWork()
 
   loadTimes = ->
-    doWork(5, 100, "svg")
+    doWork(5, 100, "canvas")
     window.onload = ->
       setTimeout ->
         t = performance.timing

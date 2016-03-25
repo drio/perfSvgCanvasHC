@@ -88,7 +88,7 @@
           .style("text-anchor", "end");
     }
 
-    function canvasEngine(data) {
+  function canvasEngine(series) {
       // create canvas
       var base = d3.select(selector);
 
@@ -100,26 +100,34 @@
 
       var context = chart.node().getContext("2d");
 
-      // Bind data
+      /* clean, prepare canvas */
+      context.fillStyle = "#fff";
+      context.rect(0, 0, chart.attr("width"), chart.attr("height"));
+      context.fill();
+
+    _.each(series, function(data) {
+      /*
+       * Create custom DOM elements and link data to them
+       */
       var detachedContainer = document.createElement("custom");
       var dataContainer     = d3.select(detachedContainer);
 
       var dataBinding = dataContainer.selectAll("custom.line")
                           .data(data, function(d) { return d;});
 
-      // DOM -> canvas
+      /*
+       * Use the data binded to the DOM elements created to
+       * create our canvas scene graph
+       */
       dataBinding.enter()
         .append("custom")
         .classed("line", true)
         .attr("x", function(d) { return d[0]; })
         .attr("y", function(d) { return d[1]; });
 
-      context.fillStyle = "#fff";
-      context.rect(0, 0, chart.attr("width"), chart.attr("height"));
-      context.fill();
-
       var elements = dataContainer.selectAll("custom.line");
 
+      /* Perpare data to facilitate canvas lines in next step */
       var moves = [];
       elements.each(function (d) {
         var node = d3.select(this);
@@ -138,6 +146,10 @@
           context.stroke();
         }
       });
+
+      d3.selectAll("custom.line").remove();
+      d3.selectAll("custom").remove();
+    });
   }
 
   function svgEngine(series) {
