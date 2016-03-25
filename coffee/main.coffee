@@ -6,12 +6,12 @@ do ->
     html = sel.html()
     sel.html(html + msg + "\n")
 
-  doWork = (size=100, engine="svg") ->
+  doWork = (nSeries=2, size=100, engine="svg") ->
     # clean up
     node = document.getElementById("vis")
     node.innerHTML = ''
 
-    data = drd.genData(size)
+    data = drd.genData(nSeries, size)
     #canvasLC(data)
     #svgLC(data)
     #_.each(drd.genData(10), (e) -> log e[1])
@@ -23,11 +23,11 @@ do ->
     d3.timer -> doWork()
 
   loadTimes = ->
-    doWork(100, "canvas")
+    doWork(2, 100, "canvas")
     window.onload = ->
       setTimeout ->
         t = performance.timing
-        console.log t.loadEventEnd - t.responseEnd
+        #console.log t.loadEventEnd - t.responseEnd
       , 0
       #console.log(t. - t.domLoading)
 

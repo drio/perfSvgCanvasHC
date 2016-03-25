@@ -7,13 +7,35 @@
         width = 1200 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
 
+    function findMinMaxTime(aSeries, idx) {
+      var min = null,
+          max = null,
+          start,
+          stop;
+
+      _.each(aSeries, function(s) {
+        start = s[0][idx]             // start epoch
+        stop  = s[s.length - 1][idx]; // end epoch
+
+        if (!min || start < min)
+          min = start;
+
+        if (!max || stop > max)
+          max = stop;
+      });
+
+      return [new Date(min), new Date(max)];
+    }
+
     function setAxes(data) {
+      var iEpoch = 0, iValue = 1;
+
       x = d3.time.scale()
-                .domain([new Date(data[0][0]), new Date(data[data.length - 1][0])])
+                .domain(findMinMaxTime(data, iEpoch))
                 .range([0, width]);
 
       y = d3.scale.linear()
-                .domain(d3.extent(data, function(d) { return d[1]; }))
+                .domain(findMinMaxTime(data, iValue))
                 .range([height, 0]);
 
       xAxis = d3.svg.axis()
@@ -119,5 +141,6 @@
     }
   }
 
+  // expose methods
   drd.dual = dual
 }).call(this);

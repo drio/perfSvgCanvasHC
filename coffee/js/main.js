@@ -14,8 +14,11 @@
       html = sel.html();
       return sel.html(html + msg + "\n");
     };
-    doWork = function(size, engine) {
+    doWork = function(nSeries, size, engine) {
       var data, node;
+      if (nSeries == null) {
+        nSeries = 2;
+      }
       if (size == null) {
         size = 100;
       }
@@ -24,7 +27,7 @@
       }
       node = document.getElementById("vis");
       node.innerHTML = '';
-      data = drd.genData(size);
+      data = drd.genData(nSeries, size);
       return drd.dual(data, engine);
     };
     renderLoop = function() {
@@ -33,12 +36,11 @@
       });
     };
     loadTimes = function() {
-      doWork(100, "canvas");
+      doWork(2, 100, "canvas");
       return window.onload = function() {
         return setTimeout(function() {
           var t;
-          t = performance.timing;
-          return console.log(t.loadEventEnd - t.responseEnd);
+          return t = performance.timing;
         }, 0);
       };
     };

@@ -2,12 +2,19 @@
 (function() {
   var genData;
 
-  genData = function(size) {
-    var start;
+  genData = function(nSeries, size) {
+    var series, start;
     start = new Date() - (60 * size);
-    return _.map(_.range(size), function(i) {
-      return [new Date(start + (60 * 1000 * i)), _.random(1000)];
+    series = [];
+    _.times(nSeries, function() {
+      var singleSerie;
+      singleSerie = [];
+      _.map(_.range(size), function(i) {
+        return singleSerie.push([new Date(start + (60 * 1000 * i)), _.random(1000)]);
+      });
+      return series.push(singleSerie);
     });
+    return series;
   };
 
   drd.genData = genData;
