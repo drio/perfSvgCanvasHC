@@ -36,7 +36,7 @@
       });
     };
     loadTimes = function() {
-      doWork(20, 100, "svg");
+      doWork(5, 100, "hc");
       return window.onload = function() {
         return setTimeout(function() {
           var t;

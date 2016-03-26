@@ -1,13 +1,14 @@
 (function() {
-    var selector = "#vis";
+    var container = "vis",
+        selector = "#" + container;
 
     var x, y, xAxis, yAxis;
 
     var svg;
 
     var margin = {top: 20, right: 20, bottom: 30, left: 60},
-        width = 1200 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+        width = 500 - margin.left - margin.right,
+        height = 200 - margin.top - margin.bottom;
 
     function findMinMaxTime(aSeries) {
       var min = null,
@@ -166,12 +167,17 @@
   }
 
   function dual(series, engine) {
-    setAxes(series);
 
-    if (engine == "canvas")
-      canvasEngine(series);
-    else
-      svgEngine(series);
+    if (engine == 'hc') {
+      drd.hcEngine(series, container);
+    }
+    else {
+      setAxes(series);
+      if (engine == "canvas")
+        canvasEngine(series);
+      else (engine == "svg")
+        svgEngine(series);
+    }
   }
 
   // expose methods

@@ -9,6 +9,7 @@ cat \
   ./js/entry.js \
   ./coffee/js/canvas-lchart.js \
   ./coffee/js/data.js \
+  ./js/hc-lchart.js \
   ./js/dual-lchart.js \
   ./js/fps.js \
   ./coffee/js/main.js > ./app.js

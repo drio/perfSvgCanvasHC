@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<script type="text/javascript" src="/vendor/jquery.min.js"></script>
+    <script src="/vendor/highstock.src.js"></script>
+	</head>
+
+
+<div id="container" style="height: 400px; min-width: 310px"></div>
+
+<script type="text/javascript">
+$(function () {
+    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+        // Create the chart
+        new Highcharts.Chart({
+          chart: {
+            animation: false,
+            renderTo: 'container'
+          },
+          title: {text: null},
+          legend:  {enabled: false },
+          credits: {enabled: false },
+          tooltip: {enabled: false},
+          series: [{ data : data }]
+        });
+    });
+});
+</script>
