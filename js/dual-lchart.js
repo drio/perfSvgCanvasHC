@@ -7,8 +7,8 @@
     var svg;
 
     var margin = {top: 20, right: 20, bottom: 30, left: 60},
-        width = 500 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
 
     function width() {
       return width + margin.left + margin.right;
@@ -182,7 +182,7 @@
       setAxes(series);
       if (engine == "canvas")
         canvasEngine(series);
-      else (engine == "svg")
+      else if (engine == "svg")
         svgEngine(series);
     }
   }

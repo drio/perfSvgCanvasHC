@@ -18,7 +18,6 @@
       tooltip: {enabled: false},
       series: toHCFormat(series)
     }
-    console.log(toHCFormat(series));
     new Highcharts.Chart(cfg);
   }
 
