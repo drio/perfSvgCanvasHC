@@ -10,6 +10,14 @@
         width = 500 - margin.left - margin.right,
         height = 200 - margin.top - margin.bottom;
 
+    function width() {
+      return width + margin.left + margin.right;
+    }
+
+    function height() {
+      return height + margin.top + margin.bottom;
+    }
+
     function findMinMaxTime(aSeries) {
       var min = null,
           max = null,
@@ -167,7 +175,6 @@
   }
 
   function dual(series, engine) {
-
     if (engine == 'hc') {
       drd.hcEngine(series, container);
     }
@@ -181,5 +188,8 @@
   }
 
   // expose methods
-  drd.dual = dual
+  drd.dual   = dual;
+  drd.height = height;
+  drd.width = width;
+
 }).call(this);

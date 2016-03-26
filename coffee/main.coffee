@@ -23,7 +23,7 @@ do ->
     d3.timer -> doWork()
 
   loadTimes = ->
-    doWork(5, 100, "hc")
+    doWork(5, 100, "svg")
     window.onload = ->
       setTimeout ->
         t = performance.timing
@@ -32,4 +32,7 @@ do ->
       #console.log(t. - t.domLoading)
 
   #renderLoop()
+  d3.select("#vis")
+    .style("height", drd.height + "px")
+    .style("width", drd.width + "px")
   loadTimes()

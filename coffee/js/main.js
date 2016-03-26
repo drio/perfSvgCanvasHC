@@ -36,7 +36,7 @@
       });
     };
     loadTimes = function() {
-      doWork(5, 100, "hc");
+      doWork(5, 100, "svg");
       return window.onload = function() {
         return setTimeout(function() {
           var t;
@@ -45,6 +45,7 @@
         }, 0);
       };
     };
+    d3.select("#vis").style("height", drd.height + "px").style("width", drd.width + "px");
     return loadTimes();
   })();
 

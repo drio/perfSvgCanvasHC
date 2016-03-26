@@ -9,8 +9,6 @@
   function engine(series, container) { // Array of timeseries
     cfg = {
       chart: {
-        height: 300,
-        weight: 200,
         animation: false,
         renderTo: container
       },
