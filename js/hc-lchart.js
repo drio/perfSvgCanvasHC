@@ -17,6 +17,17 @@
       legend:  {enabled: true },
       credits: {enabled: false },
       tooltip: {enabled: true},
+      xAxis: {
+        title: {
+          text: 'Number of Data points'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'scripting time in ms'
+        }
+      },
+
       series: data
     }
     new Highcharts.Chart(cfg);

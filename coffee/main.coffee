@@ -29,7 +29,7 @@ do ->
 
   benchmark = ->
     ns      = [1, 2, 5, 10, 20, 50]
-    sizes   = [10, 50, 100]
+    sizes   = [10, 50, 100, 500]
     engines = [ "svg", "canvas", "hc" ]
 
     tData = []
