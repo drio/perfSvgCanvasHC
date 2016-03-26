@@ -6,6 +6,22 @@
     });
   }
 
+  function plotResults(data, container) {
+    cfg = {
+      chart: {
+        animation: false,
+        renderTo: container,
+        type: 'scatter'
+      },
+      title: {text: "svg vs canvas vs HC (init time)"},
+      legend:  {enabled: true },
+      credits: {enabled: false },
+      tooltip: {enabled: true},
+      series: data
+    }
+    new Highcharts.Chart(cfg);
+  }
+
   function engine(series, container) { // Array of timeseries
     cfg = {
       chart: {
@@ -22,4 +38,5 @@
   }
 
   drd.hcEngine = engine;
+  drd.plotResults  = plotResults;
 }).call(this);
