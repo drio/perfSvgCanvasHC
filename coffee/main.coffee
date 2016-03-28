@@ -63,13 +63,15 @@ do ->
     drd.plotResults(tData, "vis")
 
 
+  # Main
+  ######################
   setSize()
 
-  #renderLoop()
+  # Mode I: Try on engine
   #time = doWork(10, 1000, "svg")
   #console.log(time)
 
-  # benchmark
+  # Mode II:  benchmark
   tData = benchmark()
   reportResults(tData)
 
