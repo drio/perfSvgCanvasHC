@@ -13,19 +13,15 @@ do ->
   doWork = (nSeries=2, size=100, engine="svg") ->
     clean()
     data = drd.genData(nSeries, size)
-    #canvasLC(data)
-    #svgLC(data)
-    #_.each(drd.genData(10), (e) -> log e[1])
     t0 = performance.now()
     drd.dual(data, engine)
-    t1 = performance.now();
-    console.log engine, nSeries, size,  t1 - t0
+    t1 = performance.now()
     +(t1 - t0).toFixed(2)
-    #_.each(drd.genData(10), (e) -> log e[1])
 
   renderLoop = ->
     #fps()
-    d3.timer -> doWork()
+    _.times(10).each ->
+      d3.timer -> doWork("hc")
 
   benchmark = ->
     ns      = [1, 2, 5, 10, 20, 50]
@@ -55,14 +51,25 @@ do ->
       , 0
     ###
 
-  #renderLoop()
-  d3.select("#vis")
-    .style("height", drd.height + "px")
-    .style("width", drd.width + "px")
-  tData = benchmark()
+  setSize =  ->
+    d3.select("#vis")
+      .style("height", drd.height + "px")
+      .style("width", drd.width + "px")
 
-  console.log(tData)
-  d3.select("#vis")
-    .style("height", "300px")
-    .style("width", "1000px")
-  drd.plotResults(tData, "vis")
+  reportResults = (tData) ->
+    d3.select("#vis")
+      .style("height", "300px")
+      .style("width", "800px")
+    drd.plotResults(tData, "vis")
+
+
+  setSize()
+
+  #renderLoop()
+  #time = doWork(10, 1000, "svg")
+  #console.log(time)
+
+  # benchmark
+  tData = benchmark()
+  reportResults(tData)
+
